@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  user-service:  # microservice user
+  user-service:
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -22,42 +22,7 @@ services:
       - mysql
     volumes:
       - ./server:/app
-
-  order-service:  # nouveau microservice exemple
-    build:
-      context: ./order
-      dockerfile: Dockerfile
-    ports:
-      - "3002:3002"
-    environment:
-      - HOST=mysql
-      - DB_USER=root
-      - PASSWORD=yourpassword
-      - DB_NAME=solid_node_db
-      - DIALECT=mysql
-      - PORT=3002
-    depends_on:
-      - mysql
-    volumes:
-      - ./order:/app
-
-  payment-service:  # autre microservice exemple
-    build:
-      context: ./payment
-      dockerfile: Dockerfile
-    ports:
-      - "3003:3003"
-    environment:
-      - HOST=mysql
-      - DB_USER=root
-      - PASSWORD=yourpassword
-      - DB_NAME=solid_node_db
-      - DIALECT=mysql
-      - PORT=3003
-    depends_on:
-      - mysql
-    volumes:
-      - ./payment:/app
+      - /app/node_modules   # garde les modules installés dans le container
 
   frontend:
     build:
@@ -67,8 +32,6 @@ services:
       - "3000:3000"
     depends_on:
       - user-service
-      - order-service
-      - payment-service
     environment:
       - NODE_ENV=production
 
