@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Dossiers temporaires
+tmp/
+temp/
+
+# Fichiers système
+.DS_Store
+
+# Environnement local
+.env
+# Ignore node_modules
